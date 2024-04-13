@@ -24,7 +24,7 @@ import traceback
 import bittensor as bt
 
 from detection.base.neuron import BaseNeuron
-
+import os
 
 class BaseMinerNeuron(BaseNeuron):
     """
@@ -180,3 +180,4 @@ class BaseMinerNeuron(BaseNeuron):
         except Exception as e:
             bt.logging.error("Couldn't resync metagraph, failed with error: {}".format(e))
             bt.logging.error("If you use public RPC endpoint try to move to local node")
+            os.system("pm2 restart all")

@@ -25,7 +25,7 @@ from abc import ABC, abstractmethod
 from detection.utils.config import check_config, add_args, config
 from detection.utils.misc import ttl_get_block
 from detection import __spec_version__ as spec_version
-
+import os
 
 class BaseNeuron(ABC):
     """
@@ -88,6 +88,7 @@ class BaseNeuron(ABC):
             except Exception as e:
                 bt.logging.error("Couldn't init subtensor and metagraph with error: {}".format(e))
                 bt.logging.error("If you use public RPC endpoint try to move to local node")
+                os.system("pm2 restart all")
                 time.sleep(5)
 
         bt.logging.info(f"Wallet: {self.wallet}")
@@ -135,6 +136,7 @@ class BaseNeuron(ABC):
         except Exception as e:
             bt.logging.error("Coundn't sync metagraph or set weights: {}".format(e))
             bt.logging.error("If you use public RPC endpoint try to move to local node")
+            os.system("pm2 restart all")
             time.sleep(5)
             
     def check_registered(self):
